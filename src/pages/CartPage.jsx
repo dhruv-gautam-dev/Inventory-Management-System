@@ -6,8 +6,8 @@ const CartPage = () => {
   const { cart, removeFromCart } = useContext(CartContext);
 
   return (
-    <div>
-      <h1>Shopping Cart</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
       {cart.length === 0 ? (
         <p>Your Cart is empty.</p>
       ) : (

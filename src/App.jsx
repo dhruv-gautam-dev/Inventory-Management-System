@@ -1,3 +1,4 @@
+// import "./index.css";
 import "./App.css";
 import Home from "./pages/Home.jsx";
 import CartPage from "./pages/CartPage.jsx";
@@ -9,10 +10,10 @@ function App() {
     <>
       <Router>
         <Navbar />
-        {/* <Routes>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
-        </Routes> */}
+        </Routes>
       </Router>
     </>
   );

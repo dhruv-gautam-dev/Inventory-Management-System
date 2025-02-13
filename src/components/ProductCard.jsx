@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   const { addToCart } = useContext(CartContext);
 
   return (
-    <div>
+    <div className="border p-4">
       <h2>{product.name}</h2>
       <p>${product.price}</p>
       <button
