@@ -1,10 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-import { FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
+import { WishlistContext } from "../context/WishlistContext";
+import { FiShoppingCart, FiHeart, FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const { cart } = useContext(CartContext);
+  const { wishlist } = useContext(WishlistContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -18,6 +20,17 @@ const Navbar = () => {
           <Link to="/" className="hover:text-gray-200 transition">
             Home
           </Link>
+          <Link
+            to="/wishlist"
+            className="relative hover:text-gray-200 transition"
+          >
+            <FiHeart size={24} />
+            {wishlist.length > 0 && (
+              <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 py-1 rounded-full">
+                {wishlist.length}
+              </span>
+            )}
+          </Link>
           <Link to="/cart" className="relative hover:text-gray-200 transition">
             <FiShoppingCart size={24} />
             {cart.length > 0 && (
@@ -27,33 +40,7 @@ const Navbar = () => {
             )}
           </Link>
         </div>
-
-        <button
-          className="md:hidden focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
-        </button>
       </div>
-
-      {menuOpen && (
-        <div className="md:hidden mt-3 space-y-3 text-center">
-          <Link
-            to="/"
-            className="block hover:text-gray-200"
-            onClick={() => setMenuOpen(false)}
-          >
-            Home
-          </Link>
-          <Link
-            to="/cart"
-            className="block hover:text-gray-200"
-            onClick={() => setMenuOpen(false)}
-          >
-            Cart {cart.length > 0 && `(${cart.length})`}
-          </Link>
-        </div>
-      )}
     </nav>
   );
 };

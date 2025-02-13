@@ -1,30 +1,45 @@
 import React, { useContext } from "react";
-import { CartContext } from "../context/CartContext.jsx";
+import { CartContext } from "../context/CartContext";
+import { WishlistContext } from "../context/WishlistContext";
+import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useContext(CartContext);
+  const { wishlist, addToWishlist, removeFromWishlist } =
+    useContext(WishlistContext);
+
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-5 w-72 h-96 flex flex-col justify-between">
-      <div className="w-full h-48">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-fill rounded-md"
-        />
-      </div>
+    <div className="bg-white rounded-lg shadow-lg p-4 w-full max-w-sm">
+      <img
+        src={product.image}
+        alt={product.name}
+        className="w-full h-40 object-fill rounded-md"
+      />
+      <h2 className="text-lg font-bold mt-2">{product.name}</h2>
+      <p className="text-gray-600">${product.price}</p>
 
-      <div className="text-center">
-        <h2 className="text-xl font-bold mt-3">{product.name}</h2>
-        <p className="text-gray-700 text-lg">${product.price}</p>
+      <div className="flex justify-between mt-3">
+        <button
+          onClick={() => addToCart(product)}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center gap-2"
+        >
+          <FiShoppingCart /> Add to Cart
+        </button>
+        <button
+          onClick={() =>
+            isWishlisted
+              ? removeFromWishlist(product.id)
+              : addToWishlist(product)
+          }
+          className={`px-4 py-2 rounded-md ${
+            isWishlisted ? "bg-red-500 text-white" : "bg-gray-200 text-black"
+          }`}
+        >
+          <FiHeart />
+        </button>
       </div>
-
-      <button
-        onClick={() => addToCart(product)}
-        className="mt-4 bg-blue-500 text-white px-5 py-3 rounded-lg hover:bg-blue-600 transition-all"
-      >
-        Add to Cart
-      </button>
     </div>
   );
 };
